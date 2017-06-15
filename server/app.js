@@ -29,6 +29,12 @@ app.get('/create',
   res.render('index');
 });
 
+app.get('/signup',
+(req, res) => {
+  console.log('GET REQUEST RECEIVED AT /SIGNUP');
+  res.render('signup');
+});
+
 app.get('/links',
 (req, res, next) => {
   console.log('GET REQUEST RECEIVED AT GET /LINKS');
@@ -91,7 +97,6 @@ app.post('/links',
 app.post('/signup',
   (req, res, next) => {
     console.log('GET REQUEST RECEIVED AT /SIGNUP');
-    console.log('REQ = ', req);
     var newUser = {
       id: req.body.id,
       password: req.body.password,
@@ -99,9 +104,9 @@ app.post('/signup',
       username: req.body.username
     };
     console.log('NEWUSER = ', newUser);
+    console.log('REQ.BODY = ', req.body);
   // INVOKE A MODEL METHOD TO WRITE THESE DATA TO THE DATABASE
-    Users.create(newUser.username, newUser.password);
-
+    models.Users.create(newUser.username, newUser.password);
 
   });
 
