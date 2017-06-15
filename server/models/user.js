@@ -15,8 +15,8 @@ class Users extends Model {
     let salt = utils.createSalt(timestamp);
 
     let newUser = {
-      username,
-      salt,
+      username: username,
+      salt: salt,
       password: utils.createHash(password, salt)
     };
 

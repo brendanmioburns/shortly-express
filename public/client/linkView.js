@@ -8,3 +8,6 @@ Shortly.LinkView = Backbone.View.extend({
     return this;
   }
 });
+
+  // EXPECTED TO USE 'EJS' (?)
+  // EXPECTED TO USE 'HANDLEBARS' (?)

@@ -2,10 +2,11 @@ Shortly.Router = Backbone.Router.extend({
   initialize: function(options) {
     this.$el = options.el;
   },
-
+  // WILL NEED TO ADD ADDITIONAL ROUTES
   routes: {
     '': 'index',
-    'create': 'create'
+    'create': 'create',
+    'signup': 'signup',
   },
 
   swapView: function(view) {

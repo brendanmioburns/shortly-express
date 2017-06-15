@@ -17,30 +17,37 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 
 
-app.get('/', 
+app.get('/',
 (req, res) => {
+  console.log('GET REQUEST RECEIVED AT /');
   res.render('index');
 });
 
-app.get('/create', 
+app.get('/create',
 (req, res) => {
+  console.log('GET REQUEST RECEIVED AT /CREATE');
   res.render('index');
 });
 
-app.get('/links', 
+app.get('/links',
 (req, res, next) => {
+  console.log('GET REQUEST RECEIVED AT GET /LINKS');
   models.Links.getAll()
     .then(links => {
       res.status(200).send(links);
+      console.log('LINKS RECEIVED FROM DATABASE = ', links);
     })
     .error(error => {
       res.status(500).send(error);
     });
 });
 
-app.post('/links', 
+app.post('/links',
 (req, res, next) => {
+  console.log('POST REQUEST RECEIVED AT /LINKS');
+
   var url = req.body.url;
+  console.log('REQ.BODY.URL = ', req.body.url);
   if (!models.Links.isValidUrl(url)) {
     // send back a 404 if link is not valid
     return res.sendStatus(404);
@@ -78,6 +85,42 @@ app.post('/links',
 // Write your authentication routes here
 /************************************************************/
 
+// WHEN USER ASKS FOR SOMETHING:
+  // USE THE CODE AT [SUCH-AND-SUCH] SPECIFIC LOCATION IN THESE FILES
+
+app.post('/signup',
+  (req, res, next) => {
+    console.log('GET REQUEST RECEIVED AT /SIGNUP');
+    console.log('REQ = ', req);
+    var newUser = {
+      id: req.body.id,
+      password: req.body.password,
+      // salt: TBD
+      username: req.body.username
+    };
+    console.log('NEWUSER = ', newUser);
+  // INVOKE A MODEL METHOD TO WRITE THESE DATA TO THE DATABASE
+    Users.create(newUser.username, newUser.password);
+
+
+  });
+
+
+
+// app.post('/signup', function (req, res, next) {
+//     var user = {
+//        Name: req.body.name,
+//        Email: req.body.email,
+//        Pass: req.body.pass,
+//        Num: req.body.num
+//    };
+//    var UserReg = mongoose.model('UserReg', RegSchema);
+//    UserReg.create(user, function(err, newUser) {
+//       if(err) return next(err);
+//       req.session.user = email;
+//       return res.send('Logged In!');
+//    });
+// });
 
 
 /************************************************************/
