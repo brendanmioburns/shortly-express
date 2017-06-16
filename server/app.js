@@ -35,6 +35,12 @@ app.get('/signup',
   res.render('signup');
 });
 
+app.get('/login',
+(req, res) => {
+  console.log('GET REQUEST RECEIVED AT /LOGIN');
+  res.render('login');
+});
+
 app.get('/links',
 (req, res, next) => {
   console.log('GET REQUEST RECEIVED AT GET /LINKS');
@@ -96,18 +102,29 @@ app.post('/links',
 
 app.post('/signup',
   (req, res, next) => {
-    console.log('GET REQUEST RECEIVED AT /SIGNUP');
-    var newUser = {
-      id: req.body.id,
-      password: req.body.password,
-      // salt: TBD
-      username: req.body.username
-    };
-    console.log('NEWUSER = ', newUser);
     console.log('REQ.BODY = ', req.body);
-  // INVOKE A MODEL METHOD TO WRITE THESE DATA TO THE DATABASE
-    models.Users.create(newUser.username, newUser.password);
-
+    models.Users.get(req.body)
+    .then(function (data) {
+      console.log('DATA = ', data);
+      if (!data) {
+      // if (models.Users.get(req.body.username) === undefined) {
+        console.log('CREATING NEW USER');
+        var newUser = {
+          id: req.body.id,
+          password: req.body.password,
+          // salt: TBD
+          username: req.body.username
+        };
+        models.Users.create({username: newUser.username, password: newUser.password});
+        res.redirect('/');
+//      .next();
+      } else {
+        console.log('ELSE CONDITION REACHED: USER ALREADY EXISTS');
+      //redirect
+        res.redirect('/login');
+      }
+    });
+//      .next();
   });
 
 

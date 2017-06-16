@@ -184,7 +184,8 @@ describe('', function() {
         if (error) { return done(error); }
         request(options, function(err, response, resBody) {
           if (err) { return done(err); }
-          expect(response.headers.location).to.equal('/signup');
+          console.log('RESPONSE HEADERS HERE', response.headers);
+          expect(response.headers.location).to.equal('/login');
           done();
         });
       });
@@ -640,7 +641,7 @@ describe('', function() {
       }
     };
 
-    xbeforeEach(function(done) {
+    beforeEach(function(done) {
       var options = {
         'method': 'POST',
         'followAllRedirects': true,

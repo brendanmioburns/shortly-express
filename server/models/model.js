@@ -24,10 +24,16 @@ class Model {
   }
 
   get(options) {
+    console.log('OPTIONS = ', options);
     let parsedOptions = parseData(options);
+    // console.log('THIS = ', this);
+    // console.log('THIS.TABLENAME = ', this.tablename);
     let queryString = `SELECT * FROM ${this.tablename} WHERE ${parsedOptions.string.join(' AND ')}`;
+    // console.log('PARSED OPTIONS.STRING.JOIN = ', parsedOptions.string.join('AND'));
+    console.log('PARSED OPTIONS = ', parsedOptions);
+    // console.log('QUERY STRING = ', queryString);
     return executeQuery(queryString, parsedOptions.values).spread(results => results);
-  }
+  }                                                     // ^ LIKE .then, BUT REQUIRES RESULTS TO BE AN ARRAY
 
   create(options) {
     let queryString = `INSERT INTO ${this.tablename} SET ?`;

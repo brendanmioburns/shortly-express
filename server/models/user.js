@@ -13,7 +13,7 @@ class Users extends Model {
   create({ username, password }) {
     let timestamp = Date.now();
     let salt = utils.createSalt(timestamp);
-
+    console.log('show username: ', username, 'show password: ', password);
     let newUser = {
       username: username,
       salt: salt,
